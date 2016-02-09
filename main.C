@@ -8,14 +8,10 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	Queue<double> myQueue = Queue<double>();
-	Queue<double> testQueue;
-	myQueue.enqueue(5);
-	myQueue.enqueue(6);
-	testQueue = myQueue;
-	myQueue.enqueue(7);
-	cout << testQueue;
-	cout << myQueue.dequeue() << endl;
-	myQueue.isEmpty();
-	
+	List<int> myList;
+	myList.addToBack(4);
+	myList.addToFront(5);
+	myList.addToBack(6);
+	myList.insertAtIndex(1,19);
+	cout << myList;
 }

@@ -1,5 +1,3 @@
-/*TODO: Provide the implementation for the Queue class in this file*/
-
 template<class T>
 Queue<T>::Queue()
 {
@@ -112,6 +110,9 @@ void Queue<T>::increasePriority(const T& el)
 	if (!head)
 		return;
 	
+	if (head->element == el)
+		return;
+
 	Node * nodePointer = head;
 	Node * prevPointer = 0;
 
@@ -120,13 +121,35 @@ void Queue<T>::increasePriority(const T& el)
 		prevPointer = nodePointer;
 		nodePointer = nodePointer->next;
 	}
+
 	if (nodePointer->next == 0)
 		return;
 
 	Node * tempNode = nodePointer->next->next;
-	prevPointer->next = nodePointer->next;
-	prevPointer->next->next = nodePointer;
-	nodePointer->next = tempNode;
+	if (prevPointer)
+	{
+		prevPointer->next = nodePointer->next;
+		prevPointer->next->next = nodePointer;
+		nodePointer->next = tempNode;
+	}
+	else
+	{
+		if (tempNode)
+		{
+			Node * tempNodeExtra = nodePointer->next;
+			tempNodeExtra->next = head;
+			head->next = tempNode;
+			head = tempNodeExtra;
+	
+		}
+		else
+		{
+			Node * tempNodeExtra = nodePointer->next;
+			tempNodeExtra->next = head;
+			head->next = 0;
+			head = tempNodeExtra;
+		}	
+	}
 }
 
 template<class T>

@@ -29,14 +29,23 @@ Stack<T>::~Stack()
 template<class T>
 void Stack<T>::push(const T& el)
 {
-	queue->enqueue(el);
+	Queue<T> * tempQueue = new Queue<T>();
+	tempQueue->enqueue(el);
+	while(!queue->isEmpty())
+		tempQueue->enqueue(queue->dequeue());
+
+
+	delete queue;
+	queue = tempQueue;
 }
 
 template<class T>
 T Stack<T>::pop()
 {
-	if (queue.isEmpty())
-		throw new MyException("Error: Stack is empty.");	
+	if (queue->isEmpty())
+		throw new MyException("Error: Stack is empty.");
+
+	return queue->dequeue();	
 }
 
 
@@ -49,14 +58,18 @@ bool Stack<T>::isEmpty()
 template<class T>
 T Stack<T>::peek()
 {
-	if (queue.isEmpty())
+	if (queue->isEmpty())
 		throw new MyException("Error: Stack is empty.");
+
+	T temp = pop();
+	push(temp);
+	return temp;
 }
 
 template<class T>
 ostream& operator<<(ostream& os,Stack<T>& stack)
 {
-	os << stack.queue;
+	os << *(stack.queue);
 	return os;	
 }
 
