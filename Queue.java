@@ -1,5 +1,21 @@
 public class Queue<T>
 {	
+	class Node
+	{
+		public Node(T data, Node n)
+		{
+			element = data;
+			next = n;
+		}
+		public Node(T data)
+		{
+			this(data,null);
+		}
+		public T element;
+		public Node next;
+	}
+	public Node head;
+
 	public Queue()
 	{
 		head = null;
@@ -8,7 +24,7 @@ public class Queue<T>
 	public Queue(Queue<T> other)
 	{
 		Node nodePointer = other.head;
-		while (nodePointer)
+		while (nodePointer != null)
 		{
 			enqueue(nodePointer.element);
 			nodePointer = nodePointer.next;
@@ -33,14 +49,15 @@ public class Queue<T>
 		{	
 			nodePointer = nodePointer.next;
 		}
+		nodePointer.next = new Node(el);
 	}
 
 	public T dequeue()
 	{
 		if (head == null)
-				//throw some exception
+			throw new NullPointerException();
 			
-		Node * tempNode = head;
+		Node tempNode = head;
 		T temp = tempNode.element;
 		
 		head = head.next;
@@ -48,9 +65,8 @@ public class Queue<T>
 		return temp;
 	}
 
-	bool isEmpty()	{ return (head == null); }
+	public boolean isEmpty()	{ return (head == null); }
 
-	public T
 	void increasePriority(T el)
 	{
 		if (head == null) return;
@@ -69,8 +85,7 @@ public class Queue<T>
 		if (nodePointer.next == null) return;
 	}
 
-		
-	public toString()
+	public void print()
 	{
 		Node nodePointer = head; 
 		System.out.print("[");
@@ -79,26 +94,13 @@ public class Queue<T>
 			
 			System.out.print(nodePointer.element);
 	
-			if (nodePointer.next)
+			if (nodePointer.next != null)
 				System.out.print(",");
 
-			nodePointer = nodePoiter.next;
+			nodePointer = nodePointer.next;
 
 		}
-		System.out.print("]");		
+		System.out.print("]\n");		
 	}
-	class Node
-	{
-		public Node(T data, Node n)
-		{
-			element = data;
-			next = n;
-		}
-		public Node(T data)
-		{
-			this(data,null);
-		}
-		T element;
-		public Node next;
-	}
+	
 }
