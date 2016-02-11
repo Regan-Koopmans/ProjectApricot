@@ -57,7 +57,6 @@ void List<T>::insertAtIndex(const int& index, const T& el)
 	Stack<T> tempStack;
 	int counter = 0;
 
-
 	while (!stack->isEmpty() && counter != index)
 	{
 		tempStack.push(stack->pop());	
@@ -73,8 +72,6 @@ void List<T>::insertAtIndex(const int& index, const T& el)
 	{
 		stack->push(tempStack.pop());
 	}
-
-
 }
 
 template<class T>
@@ -105,8 +102,6 @@ T List<T>::deleteAtIndex(const int& index)
 		stack->push(tempStack.pop());
 	}
 	return temp;
-
-	
 }
 
 
@@ -137,7 +132,35 @@ T List<T>::get(const int& index)
 template<class T>
 void List<T>::set(const int& index, const T& el)
 {
-	
+	if (!head) throw new MyException("Error: Set index out of bounds.)"
+
+	if (index == 0)
+	{
+	 	stack->pop();
+		stack.push(el);
+	}
+
+	Stack<T> tempStack;
+
+	int counter = -1;
+	while (!stack->isEmpty() && counter != index)
+	{
+		tempStack.push(stack->pop());	
+		++counter;			
+	}
+	if (stack->isEmpty() && counter != index)
+	{	
+		delete stack;
+		throw new MyException("Error: Set index out of bounds.");
+	}
+	stack.pop();
+	stack.push(el);
+	while ( !tempStack.isEmpty() )
+	{
+		stack->push(tempStack.pop());
+	}
+	return temp;
+
 }
 
 template<class T>
