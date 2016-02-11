@@ -2,10 +2,7 @@ public class List<T extends Comparable<? super T>>
 {
 	private Stack<T> stack;
 
-	public void print()
-	{
-		stack.print();
-	}
+	public void print() { stack.print(); }
 
 	public List()
 	{
@@ -24,10 +21,7 @@ public class List<T extends Comparable<? super T>>
 		return temp;	
 	}
 
-	public void addToFront(T el)
-	{
-		stack.push(el);
-	}
+	public void addToFront(T el) { stack.push(el); }
 
 	public void addToBack(T el)
 	{
@@ -37,8 +31,6 @@ public class List<T extends Comparable<? super T>>
 			tempStack.push(stack.pop());
 
 		tempStack.push(el);
-
-	
 
 		while (!tempStack.isEmpty())
 			stack.push(tempStack.pop());
@@ -97,10 +89,17 @@ public class List<T extends Comparable<? super T>>
 	
 	public T get(int index)
 	{
+		if (index == 0)	
+		{
+			T temp = stack.pop();
+			stack.push(temp);
+			return temp;
+		}
+
 		Stack<T> tempStack = new Stack<T>();
 		T temp = null;
 		int counter = -1;
-		while (!stack.isEmpty() && counter != index)
+		while (!stack.isEmpty() && counter+1 != index)
 		{
 			tempStack.push(stack.pop());
 			++counter;
@@ -127,13 +126,13 @@ public class List<T extends Comparable<? super T>>
 		Stack<T> tempStack = new Stack<T>();
 		
 		int counter = 1;
-		while (!stack.isEmpty() && counter != index)
+		while (!stack.isEmpty() && counter+1 != index)
 		{
 			tempStack.push(stack.pop());
 			++counter;
 		}
-		if (stack.isEmpty() && counter != index)
-			throw new NullPointerException();
+		if (stack.isEmpty() && counter+1 != index)
+			return;
 		
 		stack.pop();
 		stack.push(el);
@@ -142,8 +141,5 @@ public class List<T extends Comparable<? super T>>
 			stack.push(tempStack.pop());
 		}
 	}
-
 	public boolean isEmpty() { return stack.isEmpty(); } 
-
-	
 }

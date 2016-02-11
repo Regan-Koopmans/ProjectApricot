@@ -16,10 +16,7 @@ public class Queue<T>
 	}
 	public Node head;
 
-	public Queue()
-	{
-		head = null;
-	}
+	public Queue() { head = null; }
 
 	public Queue(Queue<T> other)
 	{

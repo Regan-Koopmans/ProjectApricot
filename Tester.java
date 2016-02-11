@@ -6,9 +6,9 @@ public class Tester
 		myQueue.addToFront(new Integer(5));
 		myQueue.addToFront(new Integer(6));
 		myQueue.addToFront(new Integer(7));
-		List<Integer> myList = myQueue.clone();
+		myQueue.set(1,2);
 		myQueue.addToBack(new Integer(9));
-		myList.print();
+		myQueue.print();
 	}	
 
 }
