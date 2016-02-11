@@ -1,4 +1,4 @@
-public class Stack<T>
+public class Stack<T extends Comparable<? super T>>
 {
 	public void print()
 	{
@@ -7,20 +7,26 @@ public class Stack<T>
 	
 	public Stack()
 	{
-		queue = null;
+		queue = new Queue<T>();
 	}
 
 	public Stack(Stack<T> other)
 	{
-		//queue = other.copy();
+		queue = other.queue.clone();
 	}
 	
 	public void push(T el)
 	{
+
 		Queue<T> tempQueue = new Queue<T>();
+		
 		tempQueue.enqueue(el);
+
 		while(!queue.isEmpty())
 			tempQueue.enqueue(queue.dequeue());
+
+		while (!tempQueue.isEmpty())
+			queue.enqueue(tempQueue.dequeue());
 	}
 	
 	public T pop()
@@ -41,11 +47,20 @@ public class Stack<T>
 		return temp;
 	}
 
-	public Stack clone()
+	public Stack<T> clone()
 	{
+		Stack<T> cloneStack = new Stack<T>();
+		cloneStack.queue = queue.clone();
+		return cloneStack;
 	}
 
-	public boolean isEmpty(){ return queue.isEmpty(); }
+	public boolean isEmpty()
+	{ 
+		if (queue == null)
+			return true;
+		else
+			return queue.isEmpty(); 
+	}
 	
 	private Queue<T> queue;
 }

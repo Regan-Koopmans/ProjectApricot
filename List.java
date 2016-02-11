@@ -1,5 +1,7 @@
-public class List<T> 
+public class List<T extends Comparable<? super T>> 
 {
+	private Stack<T> stack;
+
 	public void print()
 	{
 		stack.print();
@@ -10,9 +12,9 @@ public class List<T>
 		stack = new Stack<T>();
 	}
 
-	public List(List other)
+	public List(List<T> other)
 	{
-		
+		stack = other.stack.clone();
 	}
 
 	public List<T> clone()
@@ -30,11 +32,15 @@ public class List<T>
 	public void addToBack(T el)
 	{
 		Stack<T> tempStack = new Stack<T>();
+		
 		while(!stack.isEmpty())
 			tempStack.push(stack.pop());
 
 		tempStack.push(el);
-		while (!stack.isEmpty())
+
+	
+
+		while (!tempStack.isEmpty())
 			stack.push(tempStack.pop());
 	}
 
@@ -99,7 +105,13 @@ public class List<T>
 			tempStack.push(stack.pop());
 			++counter;
 		}
-		Node tempNode = stack.pop(); 
+		temp = stack.pop(); 
+		stack.push(temp);
+		while (!tempStack.isEmpty())
+		{
+			stack.push(tempStack.pop());
+		}
+		return temp;
 	}
 
 	public void set(int index, T el)
@@ -112,7 +124,7 @@ public class List<T>
 			stack.push(el);
 		}
 
-		Stack<T> tempStack;
+		Stack<T> tempStack = new Stack<T>();
 		
 		int counter = 1;
 		while (!stack.isEmpty() && counter != index)
@@ -133,5 +145,5 @@ public class List<T>
 
 	public boolean isEmpty() { return stack.isEmpty(); } 
 
-	private Stack<T> stack;
+	
 }

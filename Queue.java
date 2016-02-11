@@ -23,6 +23,9 @@ public class Queue<T>
 
 	public Queue(Queue<T> other)
 	{
+		if (other.head == null)
+			head = null;
+
 		Node nodePointer = other.head;
 		while (nodePointer != null)
 		{
@@ -31,9 +34,28 @@ public class Queue<T>
 		}
 	}
 	
-	public void clone(Queue<T> other)
+	public Queue<T> Queue(Queue<T> other)
 	{
-		
+		if (other.head == null) return new Queue<T>();
+
+		Node nodePointer = other.head;	
+
+		return this;
+	}
+
+	public Queue<T> clone()
+	{
+		Queue<T> cloneQueue = new Queue<T>();
+		if (head == null) return cloneQueue;
+
+		Node nodePointer = head;	
+
+		while (nodePointer != null)
+		{
+			cloneQueue.enqueue(nodePointer.element);
+			nodePointer = nodePointer.next;
+		}
+		return cloneQueue;
 	}
 
 	public void enqueue(T el)

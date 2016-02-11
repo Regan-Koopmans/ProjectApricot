@@ -2,11 +2,13 @@ public class Tester
 {
 	public static void main(String [] args)
 	{
-		Queue<Integer> myQueue = new Queue<Integer>();
-		myQueue.enqueue(5);
-		myQueue.enqueue(6);
-		myQueue.enqueue(7);
-		myQueue.print();
+		List<Integer> myQueue = new List<Integer>();
+		myQueue.addToFront(new Integer(5));
+		myQueue.addToFront(new Integer(6));
+		myQueue.addToFront(new Integer(7));
+		List<Integer> myList = myQueue.clone();
+		myQueue.addToBack(new Integer(9));
+		myList.print();
 	}	
 
 }
