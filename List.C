@@ -132,34 +132,33 @@ T List<T>::get(const int& index)
 template<class T>
 void List<T>::set(const int& index, const T& el)
 {
-	if (!head) throw new MyException("Error: Set index out of bounds.)"
+	if (!stack || stack->isEmpty()) throw new MyException("Error: Set index out of bounds.");
 
 	if (index == 0)
 	{
 	 	stack->pop();
-		stack.push(el);
+		stack->push(el);
 	}
 
 	Stack<T> tempStack;
 
 	int counter = -1;
-	while (!stack->isEmpty() && counter != index)
+	while (!stack->isEmpty() && counter+1 != index)
 	{
 		tempStack.push(stack->pop());	
 		++counter;			
 	}
-	if (stack->isEmpty() && counter != index)
+	if (stack->isEmpty() && counter+1 != index)
 	{	
 		delete stack;
 		throw new MyException("Error: Set index out of bounds.");
 	}
-	stack.pop();
-	stack.push(el);
+	stack->pop();
+	stack->push(el);
 	while ( !tempStack.isEmpty() )
 	{
 		stack->push(tempStack.pop());
 	}
-	return temp;
 
 }
 

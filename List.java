@@ -45,7 +45,7 @@ public class List<T extends Comparable<? super T>>
 		}
 		
 		Stack<T> tempStack = new Stack<T>();
-		int counter = 0;
+		int counter = -1;
 
 		while (!stack.isEmpty() && counter != index)
 		{
@@ -125,7 +125,7 @@ public class List<T extends Comparable<? super T>>
 
 		Stack<T> tempStack = new Stack<T>();
 		
-		int counter = 1;
+		int counter = -1;
 		while (!stack.isEmpty() && counter+1 != index)
 		{
 			tempStack.push(stack.pop());
@@ -134,7 +134,9 @@ public class List<T extends Comparable<? super T>>
 		if (stack.isEmpty() && counter+1 != index)
 			return;
 		
+
 		stack.pop();
+		
 		stack.push(el);
 		while ( !tempStack.isEmpty() )
 		{
